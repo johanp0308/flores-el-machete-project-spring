@@ -16,19 +16,19 @@ public class Payment {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "customer_code")
+    @JoinColumn(name = "codigo_cliente")
     private Customer customer;
 
     @Id
-    @Column(name = "transaction_id", nullable = false)
+    @Column(name = "id_transaccion ", nullable = false)
     private String transactionId;
 
-    @Column(name = "payment_method", nullable = false)
+    @Column(name = "forma_pago", nullable = false)
     private String paymentMethod;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "fecha_pago", nullable = false)
     private Date paymentDate;
 
-    @Column(name = "total_amount", precision = 15, scale = 2, nullable = false)
+    @Column(name = "total", precision = 15, scale = 2, nullable = false)
     private Double totalAmount;
 }

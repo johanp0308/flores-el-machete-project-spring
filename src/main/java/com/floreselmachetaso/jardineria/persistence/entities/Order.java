@@ -17,25 +17,25 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_code", nullable = false)
+    @Column(name = "codigo_pedido", nullable = false)
     private Integer orderCode;
 
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "fecha_pedido", nullable = false)
     private Date orderDate;
 
-    @Column(name = "expected_date", nullable = false)
+    @Column(name = "fecha_esperada", nullable = false)
     private Date expectedDate;
 
-    @Column(name = "delivery_date")
+    @Column(name = "fecha_entrega")
     private Date deliveryDate;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "estado", nullable = false)
     private String status;
 
-    @Column(name = "comments", columnDefinition = "TEXT")
+    @Column(name = "comentarios", columnDefinition = "TEXT")
     private String comments;
 
     @ManyToOne
-    @JoinColumn(name = "customer_code")
+    @JoinColumn(name = "codigo_cliente")
     private Customer customer;
 }
