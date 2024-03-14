@@ -1,4 +1,4 @@
-package com.floreselmachetaso.jardineria.domain.entities;
+package com.floreselmachetaso.jardineria.persistence.entities;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;

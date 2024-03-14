@@ -1,4 +1,4 @@
-package com.floreselmachetaso.jardineria.domain.entities;
+package com.floreselmachetaso.jardineria.persistence.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
