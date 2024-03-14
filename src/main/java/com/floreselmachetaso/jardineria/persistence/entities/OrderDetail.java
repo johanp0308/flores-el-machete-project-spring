@@ -16,21 +16,21 @@ public class OrderDetail {
     private OrderDetailPK id;
 
     @ManyToOne
-    @JoinColumn(name = "order_code", insertable = false, updatable = false)
+    @JoinColumn(name = "codigo_pedido", insertable = false, updatable = false)
     @MapsId("orderCode")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_code", insertable = false, updatable = false)
+    @JoinColumn(name = "codigo_producto", insertable = false, updatable = false)
     @MapsId("productCode")
     private Product product;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "cantidad", nullable = false)
     private Integer quantity;
 
-    @Column(name = "unit_price", precision = 15, scale = 2, nullable = false)
+    @Column(name = "precio_unidad", precision = 15, scale = 2, nullable = false)
     private Double unitPrice;
 
-    @Column(name = "line_number", nullable = false)
+    @Column(name = "numero_linea", nullable = false)
     private Short lineNumber;
 }

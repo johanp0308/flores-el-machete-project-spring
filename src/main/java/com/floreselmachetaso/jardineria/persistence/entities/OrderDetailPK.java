@@ -16,10 +16,10 @@ import java.io.Serializable;
 public class OrderDetailPK implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "order_code")
+    @JoinColumn(name = "codigo_pedido")
     private Order orderCode;
 
     @ManyToOne
-    @JoinColumn(name = "product_code")
+    @JoinColumn(name = "codigo_producto")
     private Product productCode;
 }

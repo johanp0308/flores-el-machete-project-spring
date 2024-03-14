@@ -13,31 +13,31 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id
-    @Column(name = "product_code", nullable = false)
+    @Column(name = "codigo_producto", nullable = false)
     private String productCode;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "product_line")
+    @JoinColumn(name = "gama")
     private ProductLine productLine;
 
-    @Column(name = "dimensions")
+    @Column(name = "dimensiones")
     private String dimensions;
 
-    @Column(name = "supplier")
+    @Column(name = "proveedor")
     private String supplier;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "quantity_in_stock", nullable = false)
+    @Column(name = "cantidad_en_stock", nullable = false)
     private Short quantityInStock;
 
-    @Column(name = "sale_price", precision = 15, scale = 2, nullable = false)
+    @Column(name = "precio_venta", precision = 15, scale = 2, nullable = false)
     private Double salePrice;
 
-    @Column(name = "supplier_price", precision = 15, scale = 2)
+    @Column(name = "precio_proveedor", precision = 15, scale = 2)
     private Double supplierPrice;
 }
