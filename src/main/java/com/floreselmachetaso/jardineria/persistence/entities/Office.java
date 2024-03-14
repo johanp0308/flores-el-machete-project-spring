@@ -16,26 +16,26 @@ import lombok.NoArgsConstructor;
 public class Office {
     @Id
     @Column(name = "codigo_oficina", nullable = false)
-    private String codigoOficina;
+    private String officeCode;
 
     @Column(name = "ciudad", nullable = false)
-    private String ciudad;
+    private String city;
 
     @Column(name = "pais", nullable = false)
-    private String pais;
+    private String country;
 
     @Column(name = "region")
     private String region;
 
     @Column(name = "codigo_postal", nullable = false)
-    private String codigoPostal;
+    private String postalCode;
 
     @Column(name = "telefono", nullable = false)
-    private String telefono;
+    private String phone;
 
     @Column(name = "linea_direccion1", nullable = false)
-    private String lineaDireccion1;
+    private String addressLine1;
 
     @Column(name = "linea_direccion2")
-    private String lineaDireccion2;
+    private String addressLine2;
 }

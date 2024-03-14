@@ -14,16 +14,16 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_code", nullable = false)
+    @Column(name = "codigo_empleado", nullable = false)
     private Integer employeeCode;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name1", nullable = false)
+    @Column(name = "apellido1", nullable = false)
     private String lastName1;
 
-    @Column(name = "last_name2")
+    @Column(name = "apellido2")
     private String lastName2;
 
     @Column(name = "extension", nullable = false)
@@ -32,13 +32,13 @@ public class Employee {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "office_code", nullable = false)
+    @Column(name = "codigo_oficina", nullable = false)
     private String officeCode;
 
     @ManyToOne
-    @JoinColumn(name = "boss_code")
+    @JoinColumn(name = "codigo_jefe ")
     private Employee boss;
 
-    @Column(name = "job_title")
+    @Column(name = "puesto")
     private String jobTitle;
 }

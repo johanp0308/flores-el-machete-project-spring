@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 public class ProductLine {
 
     @Id
-    @Column(name = "product_line", nullable = false)
+    @Column(name = "gama", nullable = false)
     private String productLine;
 
-    @Column(name = "text_description", columnDefinition = "TEXT")
+    @Column(name = "descripcion_texto", columnDefinition = "TEXT")
     private String textDescription;
 
-    @Column(name = "html_description", columnDefinition = "TEXT")
+    @Column(name = "descripcion_html", columnDefinition = "TEXT")
     private String htmlDescription;
 
-    @Column(name = "image", length = 256)
+    @Column(name = "imagen", length = 256)
     private String image;
 }
