@@ -1,9 +1,7 @@
 package com.floreselmachetaso.jardineria.persistence.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +23,9 @@ public class ProductLine {
     @Column(name = "descripcion_html", columnDefinition = "TEXT")
     private String htmlDescription;
 
-    @Column(name = "imagen", length = 256)
+    @Column(name = "imagen")
     private String image;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "productLine", cascade = CascadeType.ALL)
+    private List<Product> products;
 }

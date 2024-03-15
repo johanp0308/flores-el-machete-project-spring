@@ -1,12 +1,12 @@
 package com.floreselmachetaso.jardineria.persistence.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "oficina")
@@ -38,4 +38,7 @@ public class Office {
 
     @Column(name = "linea_direccion2")
     private String addressLine2;
+
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL)
+    private List<Employee> employees;
 }

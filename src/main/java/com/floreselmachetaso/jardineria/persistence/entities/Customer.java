@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -50,10 +51,16 @@ public class Customer {
     @Column(name = "codigo_postal")
     private String postalCode;
 
-    @ManyToOne
+    @Column(name = "limite_credito")
+    private Double creditLimit;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_empleado_rep_ventas")
     private Employee salesRepresentativeEmployee;
 
-    @Column(name = "limite_credito", precision = 15, scale = 2)
-    private Double creditLimit;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Payment> payments;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Order> orders;
+
 }

@@ -19,10 +19,6 @@ public class Product {
     @Column(name = "nombre", nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "gama")
-    private ProductLine productLine;
-
     @Column(name = "dimensiones")
     private String dimensions;
 
@@ -35,9 +31,14 @@ public class Product {
     @Column(name = "cantidad_en_stock", nullable = false)
     private Short quantityInStock;
 
-    @Column(name = "precio_venta", precision = 15, scale = 2, nullable = false)
+    @Column(name = "precio_venta",nullable = false)
     private Double salePrice;
 
-    @Column(name = "precio_proveedor", precision = 15, scale = 2)
+    @Column(name = "precio_proveedor")
     private Double supplierPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "gama", nullable = false)
+    private ProductLine productLine;
+
 }

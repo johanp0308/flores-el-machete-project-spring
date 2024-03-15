@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Entity
 @Table(name = "empleado")
@@ -32,13 +33,20 @@ public class Employee {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "codigo_oficina", nullable = false)
-    private String officeCode;
-
-    @ManyToOne
-    @JoinColumn(name = "codigo_jefe ")
-    private Employee boss;
-
     @Column(name = "puesto")
     private String jobTitle;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_oficina")
+    private Office office;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_jefe")
+    private Employee boss;
+
+
+    @OneToMany(mappedBy = "salesRepresentativeEmployee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Customer> customers;
+
+
 }
