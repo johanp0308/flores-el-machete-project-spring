@@ -28,9 +28,9 @@ public class OrderDetail {
     @Column(name = "cantidad", nullable = false)
     private Integer quantity;
 
-    @Column(name = "precio_unidad", precision = 15, scale = 2, nullable = false)
+    @Column(name = "precio_unidad", nullable = false)
     private Double unitPrice;
 
     @Column(name = "numero_linea", nullable = false)
-    private Short lineNumber;
+    private Integer lineNumber;
 }
