@@ -1,7 +1,7 @@
 package com.floreselmachetaso.jardineria.domain.repository;
 
-import java.time.Year;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -38,5 +38,25 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
      */
     @Query("SELECT codigo_pedido, fecha_pedido, estado FROM pedido WHERE estado = 'rechazado' AND YEAR(fecha_pedido) = ?")
     List<Object[]> findAllOrderRejected(int year);
+    
+    /*
+     * Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
+     */
+    @Query("SELECT codigo_pedido, fecha_entrega FROM pedido WHERE MONTH(fecha_entrega) = 1")
+    List<Object[]> findAllOrderNotDelivInMonthJanaury();
 
+    /*
+     * Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordene el resultado de mayor a menor.
+     */
+    @Query("SELECT * FROM pago WHERE YEAR(fecha_pago) = ? AND forma_pago = 'Paypal' ORDER BY total DESC;")
+    List<Object[]> findAllPayPalYearOrderDesc(int year);
+
+    /*
+     * Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.
+     */
+    
+    @Query("SELECT DISTINCT forma_pago FROM pago")
+    List<Object[]> findAllPaymentMethodS();
+
+    
 }
