@@ -37,7 +37,7 @@ public interface OfficeRepository extends JpaRepository<Office, String>  {
                 "    JOIN detalle_pedido AS dp ON p.codigo_pedido = dp.codigo_pedido " + //
                 "    JOIN producto AS pr ON dp.codigo_producto = pr.codigo_producto " + //
                 "    WHERE pr.gama = ?" + //
-                ");")
+                ")")
     List<Object[]> findAllOfficeWEmployeWCustomerPayAGama(String gama);
 
     

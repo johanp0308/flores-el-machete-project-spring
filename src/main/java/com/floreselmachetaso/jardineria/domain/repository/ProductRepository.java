@@ -12,7 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
      */
     @Query("SELECT * " + //
                 "FROM producto " + //
-                "WHERE codigo_producto NOT IN (SELECT DISTINCT codigo_producto FROM detalle_pedido); " + //
+                "WHERE codigo_producto NOT IN (SELECT DISTINCT codigo_producto FROM detalle_pedido) " + //
                 "")
     List<Object[]> findAllProductsNotOrder();
 
@@ -23,7 +23,18 @@ public interface ProductRepository extends JpaRepository<Product, String> {
                 "FROM producto AS p " + //
                 "LEFT JOIN detalle_pedido AS dp ON p.codigo_producto = dp.codigo_producto " + //
                 "LEFT JOIN gama_producto AS gp ON p.gama = gp.gama " + //
-                "WHERE dp.codigo_producto IS NULL;")
+                "WHERE dp.codigo_producto IS NULL")
     List<Object[]> findAllProductsNotOrderFields();
 
+    /*
+     * Calcula el precio de venta del producto más caro y más barato en una misma consulta.
+     */
+    @Query("SELECT 'Producto más caro' AS tipo, MAX(precio_venta) AS precio  " + //
+                "FROM producto  " + //
+                "UNION  " + //
+                "SELECT 'Producto más barato' AS tipo, MIN(precio_venta) AS precio  " + //
+                "FROM producto")
+    List<Object[]> productoExpensiveAndCheap();
+
+    1
 }

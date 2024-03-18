@@ -88,6 +88,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
                 "WHERE e1.codigo_empleado NOT IN ( " + //
                 "    SELECT DISTINCT codigo_empleado_rep_ventas " + //
                 "    FROM cliente " + //
-                ");")
+                ")")
     List<Object[]> findAllDataEmployeNotCustomerAndBoss();
+
+    /*
+     * ¿Cuántos empleados hay en la compañía?
+     */
+    @Query("SELECT COUNT(*) AS total_empleados " + //
+                "FROM empleado")
+    List<Object[]> amountEmployee();
+
+    
 }

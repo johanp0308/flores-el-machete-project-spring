@@ -48,7 +48,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     /*
      * Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordene el resultado de mayor a menor.
      */
-    @Query("SELECT * FROM pago WHERE YEAR(fecha_pago) = ? AND forma_pago = 'Paypal' ORDER BY total DESC;")
+    @Query("SELECT * FROM pago WHERE YEAR(fecha_pago) = ? AND forma_pago = 'Paypal' ORDER BY total DESC")
     List<Object[]> findAllPayPalYearOrderDesc(int year);
 
     /*
@@ -58,5 +58,12 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT DISTINCT forma_pago FROM pago")
     List<Object[]> findAllPaymentMethodS();
 
-    
+    /*
+     * ¿Cuántos pedidos hay en cada estado? Ordena el resultado de forma descendente por el número de pedidos.
+     */
+    @Query("SELECT estado, COUNT(*) AS total_pedidos " + //
+                "FROM pedido " + //
+                "GROUP BY estado " + //
+                "ORDER BY total_pedidos DESC")
+    List<Object[]> amountOrderState();
 }

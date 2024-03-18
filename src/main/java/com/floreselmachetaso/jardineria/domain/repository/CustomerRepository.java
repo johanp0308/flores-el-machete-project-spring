@@ -109,7 +109,31 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                 ") AND codigo_cliente NOT IN ( " + //
                 "    SELECT DISTINCT codigo_cliente " + //
                 "    FROM pago " + //
-                ");")
+                ")")
     List<Object[]> findAllCustomerWOrderNotPay();
+
+    /*
+     * ¿Cuántos clientes tiene cada país?
+     */
+    @Query("SELECT pais, COUNT(*) AS total_clientes " + //
+                "FROM cliente " + //
+                "GROUP BY pais")
+    List<Object[]> amountCustomerCountry();
+
+    /*
+     * Calcula el número de clientes que tiene la empresa.
+     */
+    @Query("SELECT COUNT(*) AS total_clientes " + //
+                "FROM cliente")
+    List<Object[]> numberCustomerOfCompany();
+
+     /*
+      * ¿Cuántos clientes existen con domicilio en la ciudad de Madrid?
+      */
+    @Query("SELECT COUNT(*) AS total_clientes_madrid " + //
+                "FROM cliente " + //
+                "WHERE ciudad = 'Madrid'")
+    List<Object[]> amountCustomerByCity(String city);
     
+
 }
