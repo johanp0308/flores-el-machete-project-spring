@@ -132,8 +132,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
       */
     @Query("SELECT COUNT(*) AS total_clientes_madrid " + //
                 "FROM cliente " + //
-                "WHERE ciudad = 'Madrid'")
+                "WHERE ciudad = ? ")
     List<Object[]> amountCustomerByCity(String city);
-    
+
 
 }
