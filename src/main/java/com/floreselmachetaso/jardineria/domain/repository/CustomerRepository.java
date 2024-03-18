@@ -63,4 +63,53 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query("SELECT c.nombre_cliente, e.nombre AS nombre_representante, e.apellido1 AS apellido_representante, o.ciudad FROM cliente AS c JOIN empleado AS e ON c.codigo_empleado_rep_ventas = e.codigo_empleado JOIN oficina AS o ON e.codigo_oficina = o.codigo_oficina")
     List<Object[]> findAllCustomerAndSalesRepresWCity();
 
+    /*
+     * Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
+     */
+    @Query("SELECT DISTINCT c.nombre_cliente FROM cliente AS c JOIN pedido AS p ON c.codigo_cliente = p.codigo_cliente WHERE p.fecha_entrega > p.fecha_esperada")
+    List<Object[]> findAllCustomerDeliveNotTime();
+
+    /*
+     * Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.
+     */
+    @Query("SELECT c.nombre_cliente, GROUP_CONCAT(DISTINCT gp.gama SEPARATOR ', ') AS gamas_compradas FROM cliente AS c JOIN pedido AS p ON c.codigo_cliente = p.codigo_cliente JOIN detalle_pedido AS dp ON p.codigo_pedido = dp.codigo_pedido JOIN producto AS pr ON dp.codigo_producto = pr.codigo_producto JOIN gama_producto AS gp ON pr.gama = gp.gama GROUP BY c.nombre_cliente")
+    List<Object[]> findAllRangesPayACustomer();
+    /*
+     * Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+     */
+    @Query("SELECT * FROM cliente WHERE codigo_cliente NOT IN (SELECT codigo_cliente FROM pago)")
+    List<Object[]> findAllCustomerNoPay();
+
+    /*
+     * Devuelve un listado que muestre solamente los clientes que no han realizado ningún pedido.
+     */
+    @Query("SELECT * FROM cliente WHERE codigo_cliente NOT IN (SELECT codigo_cliente FROM pedido)")
+    List<Object[]> findAllCustomerNoOrder();
+
+    /*
+     * Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.
+     */
+    @Query("SELECT * " + 
+            "FROM cliente " + 
+            "WHERE codigo_cliente NOT IN (SELECT codigo_cliente FROM pago) " + 
+            "UNION " + 
+            "SELECT * " + 
+            "FROM cliente " + 
+            "WHERE codigo_cliente NOT IN (SELECT codigo_cliente FROM pedido)")
+     List<Object[]> findAllCustomerNoPayNoOrder();
+
+    /*
+     * Devuelve un listado con los clientes que han realizado algún pedido pero no han realizado ningún pago.
+     */
+    @Query("SELECT * " + //
+                "FROM cliente " + //
+                "WHERE codigo_cliente IN ( " + //
+                "    SELECT DISTINCT codigo_cliente " + //
+                "    FROM pedido " + //
+                ") AND codigo_cliente NOT IN ( " + //
+                "    SELECT DISTINCT codigo_cliente " + //
+                "    FROM pago " + //
+                ");")
+    List<Object[]> findAllCustomerWOrderNotPay();
+    
 }
