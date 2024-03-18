@@ -36,5 +36,5 @@ public interface ProductRepository extends JpaRepository<Product, String> {
                 "FROM producto")
     List<Object[]> productoExpensiveAndCheap();
 
-    1
+    
 }
