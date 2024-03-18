@@ -66,4 +66,33 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                 "GROUP BY estado " + //
                 "ORDER BY total_pedidos DESC")
     List<Object[]> amountOrderState();
+
+    /*
+     * La facturación que ha tenido la empresa en toda la historia, indicando la base imponible, el IVA y el total facturado. La base imponible se calcula sumando el coste del producto por el número de unidades vendidas de la tabla detalle_pedido. El IVA es el 21 % de la base imponible, y el total la suma de los dos campos anteriores.
+     */
+    @Query("SELECT  " + //
+                "    SUM(dp.cantidad * pr.precio_venta) AS base_imponible, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) * 0.21 AS iva, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) + (SUM(dp.cantidad * pr.precio_venta) * 0.21) AS total_facturado " + //
+                "FROM  " + //
+                "    detalle_pedido AS dp " + //
+                "JOIN  " + //
+                "    producto AS pr ON dp.codigo_producto = pr.codigo_producto")
+    List<Object[]> billingCompany();
+
+    /*
+     * La misma información que en la pregunta anterior, pero agrupada por código de producto.
+     */
+    @Query("SELECT  " + //
+                "    dp.codigo_producto, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) AS base_imponible, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) * 0.21 AS iva, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) + (SUM(dp.cantidad * pr.precio_venta) * 0.21) AS total_facturado " + //
+                "FROM  " + //
+                "    detalle_pedido AS dp " + //
+                "JOIN  " + //
+                "    producto AS pr ON dp.codigo_producto = pr.codigo_producto " + //
+                "GROUP BY  " + //
+                "    dp.codigo_producto")
+    List<Object[]> billingCompanyByProduct();
 }

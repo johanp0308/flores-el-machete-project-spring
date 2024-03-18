@@ -98,5 +98,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
                 "FROM empleado")
     List<Object[]> amountEmployee();
 
+    /* 
+     * Devuelve el nombre de los representantes de ventas y el número de clientes al que atiende cada uno.
+    */
+    @Query("SELECT e.nombre, e.apellido1, COUNT(c.codigo_cliente) AS total_clientes  " + //
+                "FROM empleado AS e  " + //
+                "LEFT JOIN cliente AS c ON e.codigo_empleado = c.codigo_empleado_rep_ventas  " + //
+                "GROUP BY e.codigo_empleado, e.nombre, e.apellido1;")
+    List<Object[]> findAllSalesRepresandNumberCustomer();
     
 }

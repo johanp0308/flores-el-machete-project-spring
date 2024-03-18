@@ -135,5 +135,22 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                 "WHERE ciudad = ? ")
     List<Object[]> amountCustomerByCity(String city);
 
+    /*
+     * ¿Calcula cuántos clientes tiene cada una de las ciudades que empiezan por M?
+     */
+    @Query("SELECT ciudad, COUNT(*) AS total_clientes " + //
+                "FROM cliente " + //
+                "WHERE ciudad LIKE '?%' " + //
+                "GROUP BY ciudad")
+    List<Object[]> searchCustomerByCityStart(String letra);
 
+    /*
+     * Calcula el número de clientes que no tiene asignado representante de ventas.
+     */
+    @Query("SELECT COUNT(*) AS clientes_sin_representante " + //
+                "FROM cliente " + //
+                "WHERE codigo_empleado_rep_ventas IS NULL")
+    List<Object[]> amountCustomerNotSalesRepres();
+
+    
 }
