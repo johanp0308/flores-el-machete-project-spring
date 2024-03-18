@@ -1,4 +1,11 @@
 package com.floreselmachetaso.jardineria.domain.service;
 
-public class CostumerService {
+import java.util.List;
+
+
+import com.floreselmachetaso.jardineria.persistence.DTO.CustomerDTO;
+
+public interface CostumerService {
+    
+    List<CustomerDTO> getAllCustomerSpain();
 }
