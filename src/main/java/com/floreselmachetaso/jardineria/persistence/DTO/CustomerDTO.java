@@ -1,5 +1,8 @@
 package com.floreselmachetaso.jardineria.persistence.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CustomerDTO {
     private Integer customerCode;
     private String customerName;
