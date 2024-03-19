@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.floreselmachetaso.jardineria.domain.repository.CustomerRepository;
-import com.floreselmachetaso.jardineria.domain.service.CostumerService;
+import com.floreselmachetaso.jardineria.domain.service.CustomerService;
 import com.floreselmachetaso.jardineria.persistence.DTO.CustomerDTO;
 
 @Service
-public class CustomerServiceImpl implements CostumerService{
+public class CustomerServiceImpl implements CustomerService{
     
     
     private final CustomerRepository customerRepository;

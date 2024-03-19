@@ -6,7 +6,7 @@ import java.util.Map;
 import com.floreselmachetaso.jardineria.persistence.DTO.CustomerDTO;
 import com.floreselmachetaso.jardineria.persistence.entities.Customer;
 
-public interface CstomerService {
+public interface CustomerService {
     
     List<CustomerDTO> getAllCustomerSpain();
     List<CustomerDTO> getAllCustomerbyCityWRepresentIdOrId();
