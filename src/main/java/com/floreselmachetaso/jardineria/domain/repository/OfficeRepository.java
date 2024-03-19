@@ -22,7 +22,7 @@ public interface OfficeRepository extends JpaRepository<Office, String>  {
      * Devuelve un listado con la ciudad y el teléfono de las oficinas de España.
      */
     @Query(value = "SELECT ciudad as Ciudad, telefono as Telefono FROM oficina WHERE pais LIKE 'España'", nativeQuery = true)
-    List<Object[]> findAllWOfficeWPais();
+    List<Object[]> findAllWOfficeWCountry();
     
     /*
      * Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
