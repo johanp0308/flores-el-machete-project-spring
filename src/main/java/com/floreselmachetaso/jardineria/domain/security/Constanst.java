@@ -8,7 +8,6 @@ import io.jsonwebtoken.security.Keys;
 
 public class Constanst {
     // Spring Security
-    protected static final String LOGIN_URL = "/login";
     protected static final String HEADER_AUTHORIZACION_KEY = "Authorization";
     protected static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
