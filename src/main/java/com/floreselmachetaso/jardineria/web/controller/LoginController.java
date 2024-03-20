@@ -3,8 +3,12 @@ package com.floreselmachetaso.jardineria.web.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.floreselmachetaso.jardineria.domain.repository.UserRepository;
+import com.floreselmachetaso.jardineria.domain.security.JWTAuthorizationFilter;
+import com.floreselmachetaso.jardineria.domain.security.JWTAuthtenticationConfig;
 import com.floreselmachetaso.jardineria.persistence.DTO.UserDTO;
 import com.floreselmachetaso.jardineria.persistence.entities.UserEntity;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +22,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    @GetMapping("/start")
-    public String getMethodName(@RequestParam String param) {
-        return new String("Hola");
-    }
-    
+    private JWTAuthtenticationConfig jwtAuthtenticationConfig;
 
-    @PostMapping("/registerUser")
-    public ResponseEntity<?> postMethodName(@RequestBody UserDTO userdto) {
+    @PostMapping
+    public String login(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password) {
+
+        Optional<UserEntity> newUser = userRepository.findByUsername(username);
+        UserEntity userPer = newUser.get();
         
-        UserEntity userEnti =  UserEntity.builder()
-            .username(userdto.getUsername())
-            .password(passwordEncoder.encode(userdto.getPassword()))
-            .build();
-
-            userRepository.save(userEnti);
-
-        return ResponseEntity.ok(userRepository.save(userEnti));
+        if (userPer != null && userPer.getPassword().equals(password)) {
+            String token = jwtAuthtenticationConfig.getJWTToken(username);
+            userRepository.save(userPer);
+            return token;
+        } else {
+            throw new RuntimeException("Invalid Information");
+        }
     }
     
 }

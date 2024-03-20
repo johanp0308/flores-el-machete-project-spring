@@ -2,21 +2,72 @@ package com.floreselmachetaso.jardineria.persistence.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
-    private Long id;
+
     private String username;
-    private String password;
+    private String token;
+
+    public UserDTO() {
+    }
+
+    public UserDTO(String username, String token) {
+        this.username = username;
+        this.token = token;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public UserDTO username(String username) {
+        setUsername(username);
+        return this;
+    }
+
+    public UserDTO token(String token) {
+        setToken(token);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof UserDTO)) {
+            return false;
+        }
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(username, userDTO.username) && Objects.equals(token, userDTO.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, token);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " username='" + getUsername() + "'" +
+            ", token='" + getToken() + "'" +
+            "}";
+    }
+
+
 }
