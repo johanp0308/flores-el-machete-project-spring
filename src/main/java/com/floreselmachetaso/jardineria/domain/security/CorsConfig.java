@@ -17,9 +17,7 @@ public class CorsConfig {
                             .allowedOrigins("http://localhost:8080", "http://127.0.0.1:5500")
                             .allowedMethods("GET", "POST", "PUT", "DELETE")
                             .allowedHeaders("*") // Permitir todos los encabezados
-                            .exposedHeaders("Authorization") // Encabezados expuestos, si hay alguno
-                            .allowCredentials(true) // Permitir credenciales
-                            .maxAge(3600); // Cache CORS preflight por 1 hora
+                            .exposedHeaders("Authorization"); // Encabezados expuestos, si hay alguno
                 }
             };
         }

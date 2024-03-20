@@ -3,6 +3,7 @@ package com.floreselmachetaso.jardineria.domain.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -25,24 +26,14 @@ class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers(Constans.USER_SIGNIN).permitAll()
-                                .requestMatchers(Constans.SWAGGER_DOCS).permitAll()
+                        authorize.requestMatchers(HttpMethod.POST, Constans.USER_SIGNIN).permitAll()
+                                .requestMatchers(HttpMethod.POST, Constans.SWAGGER_DOCS).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(login -> login.permitAll()
-                    .successHandler(succesionHanler())    
-                )
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(htb -> htb.disable());
+                .formLogin(login -> login.disable())
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
-    }
-
-
-    public AuthenticationSuccessHandler succesionHanler(){
-        return ((request,response,authentication)->{
-            response.sendRedirect("/home");
-        });
     }
 
     @Bean
