@@ -33,7 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
                 "UNION  " + //
                 "SELECT 'Producto más barato' AS tipo, MIN(precio_venta) AS precio  " + //
                 "FROM producto", nativeQuery = true)
-    List<Object[]> productoExpensiveAndCheap();
+    List<Object[]> productExpensiveAndCheap();
 
     
 }
