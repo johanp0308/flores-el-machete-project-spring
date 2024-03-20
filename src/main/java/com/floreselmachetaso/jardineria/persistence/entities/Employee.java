@@ -143,7 +143,7 @@ public class Employee {
                 '}';
     }
 
-    public EmployeeDTO toDTO() {
+    public EmployeeDTO toEmployeeDTO() {
     	EmployeeDTO employeeDTO = new EmployeeDTO();
     	employeeDTO.setEmployeeCode(this.employeeCode);
     	employeeDTO.setFirstName(this.firstName);
@@ -156,6 +156,7 @@ public class Employee {
     	employeeDTO.setBoss(this.boss != null ? this.boss.getEmployeeCode() : null);
 return employeeDTO;
     }
+
 
 
 }

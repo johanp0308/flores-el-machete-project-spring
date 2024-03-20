@@ -14,6 +14,8 @@ public class ProductDTO {
     private double salePrice;
     private double supplierPrice;
 
+    private String image;
+
     public String getProductCode() {
         return productCode;
     }
@@ -84,5 +86,15 @@ public class ProductDTO {
 
     public void setSupplierPrice(double supplierPrice) {
         this.supplierPrice = supplierPrice;
+    }
+
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

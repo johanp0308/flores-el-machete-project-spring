@@ -25,7 +25,7 @@ public interface OfficeRepository extends JpaRepository<Office, String>  {
     List<Object[]> findAllWOfficeWCountry();
     
     /*
-     * Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
+     * Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
      */
     @Query(value = "SELECT * FROM oficina WHERE codigo_oficina NOT IN ( " + //
     "    SELECT DISTINCT e.codigo_oficina " + //

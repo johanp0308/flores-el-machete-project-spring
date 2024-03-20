@@ -14,6 +14,9 @@ public class EmployeeDTO {
     private String jobTitle;
     private String office;
     private Integer boss;
+    private String bossName;
+    private String bossBossName;
+
 
     public Integer getEmployeeCode() {
         return employeeCode;
@@ -85,5 +88,21 @@ public class EmployeeDTO {
 
     public void setBoss(Integer boss) {
         this.boss = boss;
+    }
+
+    public String getBossName() {
+        return bossName;
+    }
+
+    public void setBossName(String bossName) {
+        this.bossName = bossName;
+    }
+
+    public String getBossBossName() {
+        return bossBossName;
+    }
+
+    public void setBossBossName(String bossBossName) {
+        this.bossBossName = bossBossName;
     }
 }

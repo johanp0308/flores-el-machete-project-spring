@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query(value = "SELECT * " + //
                 "FROM producto " + //
                 "WHERE codigo_producto NOT IN (SELECT DISTINCT codigo_producto FROM detalle_pedido)", nativeQuery = true)
-    List<Object[]> findAllProductsNotOrder();
+    List<Product> findAllProductsNotOrder();
 
     /*
      * Devuelve un listado de los productos que nunca han aparecido en un pedido. El resultado debe mostrar el nombre, la descripción y la imagen del producto.
@@ -33,7 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
                 "UNION  " + //
                 "SELECT 'Producto más barato' AS tipo, MIN(precio_venta) AS precio  " + //
                 "FROM producto", nativeQuery = true)
-    List<Object[]> productoExpensiveAndCheap();
+    List<Object[]> productExpensiveAndCheap();
 
     
 }

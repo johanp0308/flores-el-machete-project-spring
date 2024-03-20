@@ -3,6 +3,7 @@ package com.floreselmachetaso.jardineria.domain.repository;
 
 import java.util.List;
 
+import com.floreselmachetaso.jardineria.persistence.DTO.EmployeeDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     /*
      * Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
      */
-    @Query(value = "SELECT nombre, apellido1, apellido2, email FROM empleado WHERE codigo_jefe = 7", nativeQuery = true)
+    @Query(value = "SELECT  codigo_empleado, nombre, apellido1, apellido2, email, codigo_jefe FROM empleado WHERE codigo_jefe = 7", nativeQuery = true)
     List<Object[]> findAllEmplyeWCodeBoss();
 
     /*

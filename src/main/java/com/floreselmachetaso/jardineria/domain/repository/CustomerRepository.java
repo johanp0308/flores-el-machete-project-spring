@@ -55,7 +55,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
   List<Object[]> findAllCustomerWSalesRepresNoPayWCity();
 
   /*
-   * Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
+   * Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
    */
   @Query(value = "SELECT DISTINCT o.linea_direccion1, o.linea_direccion2, o.ciudad, o.pais FROM oficina o JOIN empleado e ON o.codigo_oficina = e.codigo_oficina JOIN cliente c ON e.codigo_empleado = c.codigo_empleado_rep_ventas WHERE c.ciudad = 'Fuenlabrada'", nativeQuery = true)
   List<Object[]> findAllCustomerAddressWCity();
