@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.floreselmachetaso.jardineria.domain.repository.UserRepository;
 import com.floreselmachetaso.jardineria.persistence.DTO.UserDTO;
+import com.floreselmachetaso.jardineria.persistence.entities.UserEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,12 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api/v1")
 public class LoginController {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public LoginController(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
+    private PasswordEncoder passwordEncoder;
     
     @GetMapping("/start")
     public String getMethodName(@RequestParam String param) {
@@ -36,15 +36,14 @@ public class LoginController {
     @PostMapping("/registerUser")
     public ResponseEntity<?> postMethodName(@RequestBody UserDTO userdto) {
         
-        User userEnti = (User) User.builder()
+        UserEntity userEnti =  UserEntity.builder()
             .username(userdto.getUsername())
-            .password(userdto.getPassword())
+            .password(passwordEncoder.encode(userdto.getPassword()))
             .build();
 
-        ;
+            userRepository.save(userEnti);
 
-        
-        return ResponseEntity.ok(userRepository.save(userEnti)).;
+        return ResponseEntity.ok(userRepository.save(userEnti));
     }
     
 }

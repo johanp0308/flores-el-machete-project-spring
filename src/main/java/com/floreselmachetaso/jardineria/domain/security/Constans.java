@@ -6,14 +6,15 @@ import java.security.Key;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-public class Constanst {
+class Constans {
     // Spring Security
     protected static final String HEADER_AUTHORIZACION_KEY = "Authorization";
     protected static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
     protected static final String[] USER_SIGNIN = {
         "/login",
-        "/register"
+        "/registerUser",
+        "/api/v1"
     };
 
     protected static final String[] SWAGGER_DOCS = {
