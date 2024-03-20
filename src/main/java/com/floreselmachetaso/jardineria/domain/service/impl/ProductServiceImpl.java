@@ -4,6 +4,7 @@ package com.floreselmachetaso.jardineria.domain.service.impl;
 import com.floreselmachetaso.jardineria.domain.repository.ProductRepository;
 import com.floreselmachetaso.jardineria.domain.service.ProductService;
 import com.floreselmachetaso.jardineria.persistence.DTO.ProductDTO;
+import com.floreselmachetaso.jardineria.persistence.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +23,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> getAllProductsNotOrder() {
         return productRepository.findAllProductsNotOrder().stream()
-                .map(row -> {
-                    ProductDTO productDTO = new ProductDTO();
-                    productDTO.setProductCode((String) row[0]);
-                    productDTO.setName((String) row[1]);
-                    productDTO.setProductLine((String) row[2]);
-                    productDTO.setDimensions((String) row[3]);
-                    productDTO.setSupplier((String) row[4]);
-                    productDTO.setDescription((String) row[5]);
-                    productDTO.setQuantityInStock((Integer) row[6]);
-                    productDTO.setSalePrice((Double) row[7]);
-                    productDTO.setSupplierPrice((Double) row[8]);
-                    return productDTO;
-                })
-                .collect(Collectors.toList());
+                .map(Product::toProductDTO)
+                .toList();
     }
 
     @Override

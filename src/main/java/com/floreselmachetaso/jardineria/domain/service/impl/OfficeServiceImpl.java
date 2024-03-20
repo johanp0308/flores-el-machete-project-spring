@@ -9,7 +9,9 @@ import com.floreselmachetaso.jardineria.domain.repository.OfficeRepository;
 import com.floreselmachetaso.jardineria.domain.service.OfficeService;
 import com.floreselmachetaso.jardineria.persistence.DTO.CustomerDTO;
 import com.floreselmachetaso.jardineria.persistence.DTO.OfficeDTO;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OfficeServiceImpl implements OfficeService{
     
     private final OfficeRepository officeRepository;
@@ -32,7 +34,7 @@ public class OfficeServiceImpl implements OfficeService{
 
     @Override
     public List<OfficeDTO> getallWOfficeWCountry() {
-        List<Object[]> lista = officeRepository.findAllOfficeWCity();
+        List<Object[]> lista = officeRepository.findAllWOfficeWCountry();
         return (List<OfficeDTO>) lista.stream().map(ele -> {
             OfficeDTO cDto = new OfficeDTO();
             cDto.setOfficeCode(String.valueOf(ele[0]));
@@ -43,7 +45,7 @@ public class OfficeServiceImpl implements OfficeService{
 
     @Override
     public List<OfficeDTO> findAllOfficeWEmployeWCustomerPayAGamaFrut() {
-        List<Object[]> lista = officeRepository.findAllOfficeWCity();
+        List<Object[]> lista = officeRepository.findAllOfficeWEmployeWCustomerPayAGamaFrut();
         return (List<OfficeDTO>) lista.stream().map(ele -> {
             OfficeDTO cDto = new OfficeDTO();
             cDto.setOfficeCode(String.valueOf(ele[0]));

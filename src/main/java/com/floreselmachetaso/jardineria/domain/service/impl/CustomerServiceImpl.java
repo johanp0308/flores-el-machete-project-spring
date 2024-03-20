@@ -65,8 +65,8 @@ public class CustomerServiceImpl implements CustomerService{
         for(Object[] row : listas){
             Map<String,Object> result = new HashMap<>();
             result.put("nomre_cliente", row[0]);
-            result.put("nombre",row[1]);
-            result.put("apellido1", row[2]);
+            result.put("nombre_representante",row[1]);
+            result.put("apellido_representante", row[2]);
             results.add(result);
         }
         return results;
@@ -156,11 +156,11 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public List<Map<String, Object>> getAllRangesPayACustomer() {
-        List<Object[]> listas  = customerRepository.findAllCustomerAndSalesRepresWCity();
+        List<Object[]> listas  = customerRepository.findAllRangesPayACustomer();
         List<Map<String,Object>> results = new ArrayList<>();
         for(Object[] row : listas){
             Map<String,Object> result = new HashMap<>();
-            result.put("nomre_cliente", row[0]);
+            result.put("nombre_cliente", row[0]);
             result.put("gamas_compradas", row[1]);
             results.add(result);
         }
@@ -320,9 +320,6 @@ public class CustomerServiceImpl implements CustomerService{
         }
         return results;
     }
-
-    
-    
 
 
 

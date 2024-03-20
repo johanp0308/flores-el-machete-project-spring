@@ -1,6 +1,7 @@
 package com.floreselmachetaso.jardineria.domain.service;
 
 import com.floreselmachetaso.jardineria.persistence.DTO.EmployeeDTO;
+import com.floreselmachetaso.jardineria.persistence.entities.Employee;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface EmployeeService {
     /*
      * Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
      */
-    List<EmployeeDTO> getAllEmplyeWCodeBoss(Long codeBoss);
+    List<EmployeeDTO> getAllEmplyeWCodeBoss();
 
     /*
      * Devuelve el nombre del puesto, nombre, apellidos y email del jefe de la empresa

@@ -3,6 +3,7 @@ package com.floreselmachetaso.jardineria.domain.service.impl;
 import com.floreselmachetaso.jardineria.domain.repository.EmployeeRepository;
 import com.floreselmachetaso.jardineria.domain.service.EmployeeService;
 import com.floreselmachetaso.jardineria.persistence.DTO.EmployeeDTO;
+import com.floreselmachetaso.jardineria.persistence.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +23,17 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
      */
     @Override
-    public List<EmployeeDTO> getAllEmplyeWCodeBoss(Long codeBoss) {
+    public List<EmployeeDTO> getAllEmplyeWCodeBoss() {
         List<Object[]> employeesData = employeeRepository.findAllEmplyeWCodeBoss();
         return employeesData.stream()
                 .map(row -> {
                     EmployeeDTO employeeDTO = new EmployeeDTO();
-                    employeeDTO.setFirstName((String) row[0]);
-                    employeeDTO.setLastName1((String) row[1]);
-                    employeeDTO.setLastName2((String) row[2]);
-                    employeeDTO.setEmail((String) row[3]);
+                    employeeDTO.setEmployeeCode((int) row[0]);
+                    employeeDTO.setFirstName((String) row[1]);
+                    employeeDTO.setLastName1((String) row[2]);
+                    employeeDTO.setLastName2((String) row[3]);
+                    employeeDTO.setEmail((String) row[4]);
+                    employeeDTO.setBoss((int) row[5]);
                     return employeeDTO;
                 })
                 .collect(Collectors.toList());
@@ -63,8 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public List<EmployeeDTO> getAllNotSalesRepresentative() {
-        List<Object[]> employeesData = employeeRepository.findAllNotSalesRepresentative();
-        return employeesData.stream()
+        return employeeRepository.findAllNotSalesRepresentative().stream()
                 .map(row -> {
                     EmployeeDTO employeeDTO = new EmployeeDTO();
                     employeeDTO.setFirstName((String) row[0]);
