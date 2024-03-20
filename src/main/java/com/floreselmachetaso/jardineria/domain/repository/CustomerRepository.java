@@ -16,12 +16,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
    */
   @Query(value = "SELECT nombre_cliente FROM cliente WHERE pais = 'Spain'", nativeQuery = true)
   List<Object[]> findAllCustomerSpain();
+
   /*
    * Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y
    * cuyo representante de ventas tenga el código de empleado 11 o 30.
    */
-
-  @Query(value = "SELECT * FROM cliente c JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado WHERE c.ciudad = 'Madrid' AND e.codigo_empleado IN (11, 30)", nativeQuery = true)
+  @Query(value = "SELECT c.* FROM cliente c JOIN empleado e ON c.codigo_empleado_rep_ventas = e.codigo_empleado WHERE c.ciudad = 'Madrid' AND e.codigo_empleado IN (11, 30)", nativeQuery = true)
   List<Object[]> findAllCustomerbyCityWRepresentIdOrId();
 
   /*
