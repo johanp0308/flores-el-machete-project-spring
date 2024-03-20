@@ -34,9 +34,9 @@ public interface OfficeRepository extends JpaRepository<Office, String>  {
     "    JOIN pedido p ON c.codigo_cliente = p.codigo_cliente " + //
     "    JOIN detalle_pedido dp ON p.codigo_pedido = dp.codigo_pedido " + //
     "    JOIN producto pr ON dp.codigo_producto = pr.codigo_producto " + //
-    "    WHERE pr.gama = ?" + //
+    "    WHERE pr.gama = 'Frutales'" + //
     ")", nativeQuery = true)
-    List<Object[]> findAllOfficeWEmployeWCustomerPayAGama(String gama);
+    List<Object[]> findAllOfficeWEmployeWCustomerPayAGamaFrut();
 
     
 
