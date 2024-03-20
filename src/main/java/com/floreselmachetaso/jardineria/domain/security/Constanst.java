@@ -12,6 +12,19 @@ public class Constanst {
     protected static final String HEADER_AUTHORIZACION_KEY = "Authorization";
     protected static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
+    protected static final String[] USER_SIGNIN = {
+        "/login",
+        "/register"
+    };
+
+    protected static final String[] SWAGGER_DOCS = {
+        "/v3/api-docs",
+        "/v3/api-docs.yaml",
+        "/swagger-ui/index.html",
+        "/redoc/index.html",
+        "/doc/swagger-ui.html"
+    };
+
     // JWT
     protected static final String SUPER_SECRET_KEY = "VGhpcyBpcyBhIG5PachongdGV4dC4gVGhpcyBlbmNvZGluZyBpcyBhIG5lZWQgdGV4dC4gVGhpcyBpcyBhIG5lZWQgdGV4dC4=";
     protected static final long TOKEN_EXPIRATION_TIME = 864_000_000; 
