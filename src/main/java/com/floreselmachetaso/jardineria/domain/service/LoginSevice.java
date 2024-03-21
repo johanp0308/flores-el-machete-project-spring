@@ -8,7 +8,7 @@ import com.floreselmachetaso.jardineria.persistence.DTO.UserDTO;
 
 public interface LoginSevice {
     
-    ResponseEntity<UserDTO> loginUser(String username, String password);
-    ResponseEntity<UserDTO> registerUser(String username, String password);
+    UserDTO loginUser(String username, String password);
+    UserDTO registerUser(String username, String password);
     Map<String,Object> validateTokeN(String token);
 }
