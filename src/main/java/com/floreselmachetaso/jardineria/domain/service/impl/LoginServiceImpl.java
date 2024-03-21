@@ -26,7 +26,8 @@ public class LoginServiceImpl implements LoginSevice{
     public LoginServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
     }
-
+    
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -37,9 +38,9 @@ public class LoginServiceImpl implements LoginSevice{
 
     @Override
     public UserDTO loginUser(String username, String password) {
-        Optional<UserEntity> oUser = userRepository.findByUsername(username);
-        if (oUser.get() != null) {
-            UserEntity userEntity = oUser.get();
+        UserEntity oUser = userRepository.findByUsername(username).orElse(null);
+        if (oUser != null) {
+            UserEntity userEntity = oUser;
             if(passwordEncoder.matches(password, userEntity.getPassword())){
                 String token = jwtAuthtenticationConfig.getJWTToken(userEntity.getUsername());
                 UserDTO userDTO = new UserDTO();
@@ -53,8 +54,8 @@ public class LoginServiceImpl implements LoginSevice{
 
     @Override
     public UserDTO registerUser(String username, String password) {
-        Optional<UserEntity> oUser = userRepository.findByUsername(username);
-        if(oUser.get() == null){
+        UserEntity oUser = userRepository.findByUsername(username).orElse(null);
+        if(oUser == null){
             UserEntity userEntity = new UserEntity();
             userEntity.setUsername(username);
             userEntity.setPassword(passwordEncoder.encode(password));
