@@ -11,6 +11,7 @@ import com.floreselmachetaso.jardineria.persistence.entities.UserEntity;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,12 @@ public class LoginController {
         return ResponseEntity.ok().body(userDTO);
     }
     
-
+    @PostMapping("validateToken")
+    public ResponseEntity<?> validateToken(@RequestParam("token") String token) {
+        Map<String,Object> tokenMap = loginSevice.validateTokeN(token);
+        return ResponseEntity.ok().body(tokenMap);
+    }
+    
 
     
 }
