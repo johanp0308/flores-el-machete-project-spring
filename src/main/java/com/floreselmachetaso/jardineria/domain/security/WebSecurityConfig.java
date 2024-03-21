@@ -27,12 +27,13 @@ class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize ->
                         authorize.requestMatchers(HttpMethod.POST, Constans.USER_SIGNIN).permitAll()
-                                .requestMatchers(HttpMethod.POST, Constans.SWAGGER_DOCS).permitAll()
+                                .requestMatchers(HttpMethod.GET, Constans.SWAGGER_DOCS).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(login -> login.disable())
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic(hta -> hta.disable());
         return http.build();
     }
 

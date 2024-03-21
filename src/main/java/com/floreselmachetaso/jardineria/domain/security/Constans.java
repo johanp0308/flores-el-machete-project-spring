@@ -19,11 +19,20 @@ class Constans {
     };
 
     protected static final String[] SWAGGER_DOCS = {
-        "/v3/api-docs",
-        "/v3/api-docs.yaml",
-        "/swagger-ui/index.html",
-        "/redoc/index.html",
-        "/doc/swagger-ui.html"
+        "/doc/**",
+        "/swagger-ui.html",
+        "/swagger-ui/**",
+        "/v3/api-docs/**",
+        "/api/v1/auth/**",
+        "/v2/api-docs",
+        "/v3/api-docs/**",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/ui",
+        "/configuration/security",
+        "/swagger-ui/**",
+        "/webjars/**",
+        "/swagger-ui.html"
     };
 
     // JWT
