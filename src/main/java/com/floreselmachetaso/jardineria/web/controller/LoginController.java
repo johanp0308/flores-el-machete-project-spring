@@ -2,12 +2,8 @@ package com.floreselmachetaso.jardineria.web.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.floreselmachetaso.jardineria.domain.repository.UserRepository;
-import com.floreselmachetaso.jardineria.domain.security.JWTAuthorizationFilter;
-import com.floreselmachetaso.jardineria.domain.security.JWTAuthtenticationConfig;
 import com.floreselmachetaso.jardineria.domain.service.LoginSevice;
 import com.floreselmachetaso.jardineria.persistence.DTO.UserDTO;
-import com.floreselmachetaso.jardineria.persistence.entities.UserEntity;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -18,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 
 @RestController
