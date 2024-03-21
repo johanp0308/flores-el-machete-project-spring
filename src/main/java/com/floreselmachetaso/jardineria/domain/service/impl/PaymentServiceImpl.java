@@ -23,8 +23,9 @@ public class PaymentServiceImpl implements PaymentService {
 
         for(Object[] row: results){
             Map<String,Object> oMap = new HashMap<>();
-            oMap.put("average_year")
+            oMap.put("average_year",row[0]);
         }
+        return listas;
     }
 
     @Override
