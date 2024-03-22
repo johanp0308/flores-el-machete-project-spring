@@ -11,82 +11,82 @@ import com.floreselmachetaso.jardineria.persistence.entities.OrderDetailPK;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, OrderDetailPK> {
 
     /*
-     * Lists the total sales of products that have billed more than 3000 euros. It will show the name, units sold, total billed, and total billed with taxes (21% VAT).
+     * Lista las ventas totales de los productos que hayan facturado más de 3000 euros. Se mostrará el nombre, unidades vendidas, total facturado y total facturado con impuestos (21% IVA).
      */
     @Query(value = "SELECT " + //
-            "    pr.name AS product_name, " + //
-            "    SUM(od.quantity) AS units_sold, " + //
-            "    SUM(od.quantity * pr.sale_price) AS total_billed_without_vat, " + //
-            "    SUM(od.quantity * pr.sale_price) * 1.21 AS total_billed_with_vat " + //
-            "FROM " + //
-            "    order_detail AS od " + //
-            "JOIN " + //
-            "    product AS pr ON od.product_code = pr.product_code " + //
-            "JOIN " + //
-            "    order AS o ON od.order_code = o.order_code " + //
-            "JOIN " + //
-            "    product_line AS pl ON pr.product_line = pl.product_line " + //
-            "JOIN " + //
-            "    customer AS c ON o.customer_code = c.customer_code " + //
-            "GROUP BY " + //
-            "    od.product_code, pr.name " + //
-            "HAVING " + //
-            "    total_billed_without_vat > 3000", nativeQuery = true)
+                "    pr.nombre AS nombre_producto, " + //
+                "    SUM(dp.cantidad) AS unidades_vendidas, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) AS total_facturado_sin_iva, " + //
+                "    SUM(dp.cantidad * pr.precio_venta) * 1.21 AS total_facturado_con_iva " + //
+                "FROM " + //
+                "    detalle_pedido AS dp " + //
+                "JOIN " + //
+                "    producto AS pr ON dp.codigo_producto = pr.codigo_producto " + //
+                "JOIN " + //
+                "    pedido AS pe ON dp.codigo_pedido = pe.codigo_pedido " + //
+                "JOIN " + //
+                "    gama_producto AS gp ON pr.gama = gp.gama " + //
+                "JOIN " + //
+                "    cliente AS c ON pe.codigo_cliente = c.codigo_cliente " + //
+                "GROUP BY " + //
+                "    dp.codigo_producto, pr.nombre " + //
+                "HAVING " + //
+                "    total_facturado_sin_iva > 3000", nativeQuery = true)
     List<Object[]> findAllSalesByPrice();
 
     /*
-     * Returns a list of the top 20 best-selling products and the total number of units sold for each one. The list should be ordered by the total number of units sold.
+     * Devuelve un listado de los <Canitidad a mostrar> productos más vendidos y el número total de unidades que se han vendido de cada uno. El listado deberá estar ordenado por el número total de unidades vendidas.
      */
     @Query(value = "SELECT  " + //
-            "    od.product_code, " + //
-            "    p.name AS product_name, " + //
-            "    SUM(od.quantity) AS total_units_sold " + //
+            "    dp.codigo_producto, " + //
+            "    p.nombre AS nombre_producto, " + //
+            "    SUM(dp.cantidad) AS total_unidades_vendidas " + //
             "FROM  " + //
-            "    order_detail AS od " + //
+            "    detalle_pedido AS dp " + //
             "JOIN  " + //
-            "    product AS p ON od.product_code = p.product_code " + //
+            "    producto AS p ON dp.codigo_producto = p.codigo_producto " + //
             "GROUP BY  " + //
-            "    od.product_code, p.name " + //
+            "    dp.codigo_producto, p.nombre " + //
             "ORDER BY  " + //
-            "    total_units_sold DESC " + //
+            "    total_unidades_vendidas DESC " + //
             "LIMIT 20", nativeQuery = true)
     List<Object[]> topProductsMoreSales();
 
     /*
-     * Calculates the number of different products in each order.
+     * Calcula el número de productos diferentes que hay en cada uno de los pedidos.
      */
-    @Query(value = "SELECT order_code, COUNT(DISTINCT product_code) AS num_different_products " + //
-            "FROM order_detail " + //
-            "GROUP BY order_code", nativeQuery = true)
+    @Query(value = "SELECT codigo_pedido, COUNT(DISTINCT codigo_producto) AS num_productos_diferentes " + //
+            "FROM detalle_pedido " + //
+            "GROUP BY codigo_pedido", nativeQuery = true)
     List<Object[]> amountCustomerDiffOrder();
 
     /*
-     * The company's billing throughout its history, indicating the taxable base, the VAT, and the total billed. The taxable base is calculated by adding the product cost multiplied by the number of units sold from the order_detail table. The VAT is 21% of the taxable base, and the total is the sum of the two previous fields.
+     * La facturación que ha tenido la empresa en toda la historia, indicando la base imponible, el IVA y el total facturado. La base imponible se calcula sumando el coste del producto por el número de unidades vendidas de la tabla detalle_pedido. El IVA es el 21 % de la base imponible, y el total la suma de los dos campos anteriores.
      */
     @Query(value = "SELECT  " + //
-            "    SUM(od.quantity * pr.sale_price) AS taxable_base, " + //
-            "    SUM(od.quantity * pr.sale_price) * 0.21 AS vat, " + //
-            "    SUM(od.quantity * pr.sale_price) + (SUM(od.quantity * pr.sale_price) * 0.21) AS total_billed " + //
+            "    SUM(dp.cantidad * pr.precio_venta) AS base_imponible, " + //
+            "    SUM(dp.cantidad * pr.precio_venta) * 0.21 AS iva, " + //
+            "    SUM(dp.cantidad * pr.precio_venta) + (SUM(dp.cantidad * pr.precio_venta) * 0.21) AS total_facturado " + //
             "FROM  " + //
-            "    order_detail AS od " + //
+            "    detalle_pedido AS dp " + //
             "JOIN  " + //
-            "    product AS pr ON od.product_code = pr.product_code", nativeQuery = true)
+            "    producto AS pr ON dp.codigo_producto = pr.codigo_producto", nativeQuery = true)
     List<Object[]> billingCompany();
 
     /*
-     * The same information as the previous question, but grouped by product code.
+     * La misma información que en la pregunta anterior, pero agrupada por código de producto.
      */
     @Query(value = "SELECT  " + //
-            "    od.product_code, " + //
-            "    SUM(od.quantity * pr.sale_price) AS taxable_base, " + //
-            "    SUM(od.quantity * pr.sale_price) * 0.21 AS vat, " + //
-            "    SUM(od.quantity * pr.sale_price) + (SUM(od.quantity * pr.sale_price) * 0.21) AS total_billed " + //
+            "    dp.codigo_producto, " + //
+            "    SUM(dp.cantidad * pr.precio_venta) AS base_imponible, " + //
+            "    SUM(dp.cantidad * pr.precio_venta) * 0.21 AS iva, " + //
+            "    SUM(dp.cantidad * pr.precio_venta) + (SUM(dp.cantidad * pr.precio_venta) * 0.21) AS total_facturado " + //
             "FROM  " + //
-            "    order_detail AS od " + //
+            "    detalle_pedido AS dp " + //
             "JOIN  " + //
-            "    product AS pr ON od.product_code = pr.product_code " + //
+            "    producto AS pr ON dp.codigo_producto = pr.codigo_producto " + //
             "GROUP BY  " + //
-            "    od.product_code", nativeQuery = true)
+            "    dp.codigo_producto", nativeQuery = true)
     List<Object[]> billingCompanyByProduct();
 
 }

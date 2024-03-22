@@ -29,8 +29,7 @@ public class CustomerServiceImpl implements CustomerService{
         List<Object[]> lista = customerRepository.findAllCustomerSpain();
         return (List<CustomerDTO>) lista.stream().map(ele -> {
             CustomerDTO cDto = new CustomerDTO();
-            cDto.setCity(String.valueOf(ele[0]));
-            cDto.setPhone(String.valueOf(ele[1]));
+            cDto.setCustomerName(String.valueOf(ele[0]));
             return cDto;
         }).collect(Collectors.toList());
     }

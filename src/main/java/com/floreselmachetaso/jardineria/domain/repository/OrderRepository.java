@@ -10,43 +10,44 @@ import com.floreselmachetaso.jardineria.persistence.entities.Order;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     /*
-     * List of order statuses
+     * Devuelve un listado con los disYtintos estados por los que puede pasar un pedido.
      */
-    @Query(value = "SELECT DISTINCT status FROM order", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT estado FROM pedido", nativeQuery = true)
     List<Object[]> findAllStatusOrder();
 
 
     /*
-     * Orders not delivered on time with order code, customer code, expected date, and delivery date
+     * Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos que no han sido entregados a tiempo.
      */
-    @Query(value = "SELECT order_code, customer_code, expected_date, delivery_date FROM order WHERE delivery_date > expected_date", nativeQuery = true)
+    @Query(value = "SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega FROM pedido WHERE fecha_entrega > fecha_esperada", nativeQuery = true)
     List<Object[]> findAllOrderDelivNotTime();
 
     /*
-     * Orders delivered at least two days before the expected date with order code, customer code, expected date, and delivery date*/
-    @Query(value = "SELECT order_code, customer_code, expected_date, delivery_date FROM order WHERE DATEDIFF(expected_date, delivery_date) >= 2", nativeQuery = true)
+     * Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
+     */
+    @Query(value = "SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega FROM pedido WHERE DATEDIFF(fecha_esperada, fecha_entrega) >= 2", nativeQuery = true)
     List<Object[]> findAllOrderDelivNotTimeDiffTwoDay();
-
+    
     /*
-     * Orders rejected in 2009
+     * Devuelve un listado de todos los pedidos que fueron rechazados en 2009.
      */
-    @Query(value = "SELECT order_code, order_date, status FROM order WHERE status = 'rejected' AND YEAR(order_date) = 2009", nativeQuery = true)
+    @Query(value = "SELECT codigo_pedido, fecha_pedido, estado FROM pedido WHERE estado = 'rechazado' AND YEAR(fecha_pedido) = 2009", nativeQuery = true)
     List<Object[]> findAllOrderRejected();
-
+    
     /*
-     * Orders delivered in January of any year
+     * Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
      */
-    @Query(value = "SELECT order_code, delivery_date FROM order WHERE MONTH(delivery_date) = 1", nativeQuery = true)
+    @Query(value = "SELECT codigo_pedido, fecha_entrega FROM pedido WHERE MONTH(fecha_entrega) = 1", nativeQuery = true)
     List<Object[]> findAllOrderNotDelivInMonthJanaury();
 
 
     /*
-     * How many orders are there in each status? Order the result in descending order by the number of orders.
+     * ¿Cuántos pedidos hay en cada estado? Ordena el resultado de forma descendente por el número de pedidos.
      */
-    @Query(value = "SELECT status, COUNT(*) AS total_orders " + //
-            "FROM order " + //
-            "GROUP BY status " + //
-            "ORDER BY total_orders DESC", nativeQuery = true)
+    @Query(value = "SELECT estado, COUNT(*) AS total_pedidos " + //
+                "FROM pedido " + //
+                "GROUP BY estado " + //
+                "ORDER BY total_pedidos DESC", nativeQuery = true)
     List<Object[]> amountOrderState();
 
 

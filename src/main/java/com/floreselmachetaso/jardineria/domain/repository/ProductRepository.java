@@ -8,40 +8,40 @@ import com.floreselmachetaso.jardineria.persistence.entities.Product;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
     /*
-     * Returns a list of products that have never appeared in an order.
+     * Devuelve un listado de los productos que nunca han aparecido en un pedido.
      */
     @Query(value = "SELECT * " + //
-            "FROM product " + //
-            "WHERE product_code NOT IN (SELECT DISTINCT product_code FROM order_detail)", nativeQuery = true)
+                "FROM producto " + //
+                "WHERE codigo_producto NOT IN (SELECT DISTINCT codigo_producto FROM detalle_pedido)", nativeQuery = true)
     List<Product> findAllProductsNotOrder();
 
     /*
-     * Returns a list of products that have never appeared in an order. The result should show the name, description, and image of the product.
+     * Devuelve un listado de los productos que nunca han aparecido en un pedido. El resultado debe mostrar el nombre, la descripción y la imagen del producto.
      */
-    @Query(value = "SELECT p.name, p.description, pl.image " + //
-            "FROM product AS p " + //
-            "LEFT JOIN order_detail AS od ON p.product_code = od.product_code " + //
-            "LEFT JOIN product_line AS pl ON p.product_line = pl.product_line " + //
-            "WHERE od.product_code IS NULL", nativeQuery = true)
+    @Query(value = "SELECT p.nombre, p.descripcion, gp.imagen " + //
+                "FROM producto AS p " + //
+                "LEFT JOIN detalle_pedido AS dp ON p.codigo_producto = dp.codigo_producto " + //
+                "LEFT JOIN gama_producto AS gp ON p.gama = gp.gama " + //
+                "WHERE dp.codigo_producto IS NULL", nativeQuery = true)
     List<Object[]> findAllProductsNotOrderFields();
 
     /*
-     * Calculates the selling price of the most expensive and cheapest product in a single query.
+     * Calcula el precio de venta del producto más caro y más barato en una misma consulta.
      */
-    @Query(value = "SELECT 'Most Expensive Product' AS type, MAX(selling_price) AS price  " + //
-            "FROM product  " + //
-            "UNION  " + //
-            "SELECT 'Cheapest Product' AS type, MIN(selling_price) AS price  " + //
-            "FROM product", nativeQuery = true)
+    @Query(value = "SELECT 'Producto más caro' AS tipo, MAX(precio_venta) AS precio  " + //
+                "FROM producto  " + //
+                "UNION  " + //
+                "SELECT 'Producto más barato' AS tipo, MIN(precio_venta) AS precio  " + //
+                "FROM producto", nativeQuery = true)
     List<Object[]> productExpensiveAndCheap();
 
     /*
-     * Calculates the sum of the total quantity of all products that appear in each of the orders.
+     * Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los pedidos.
      */
-    @Query(value = "SELECT order_code, SUM(quantity) AS total_quantity_products " + //
-            "FROM order_detail " + //
-            "GROUP BY order_code", nativeQuery = true)
+    @Query(value = "SELECT codigo_pedido, SUM(cantidad) AS cantidad_total_productos " + //
+            "FROM detalle_pedido " + //
+            "GROUP BY codigo_pedido", nativeQuery = true)
     List<Object[]> sumAmountCustomerDiffOrder();
 
-
+    
 }
