@@ -1,6 +1,9 @@
 package com.floreselmachetaso.jardineria.web.controller;
 
 import com.floreselmachetaso.jardineria.domain.service.PaymentService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/payments")
+@SecurityRequirement(name = "bearerAuth")
 public class PaymentController {
 
     private final PaymentService paymentService;

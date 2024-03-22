@@ -3,6 +3,9 @@ package com.floreselmachetaso.jardineria.web.controller;
 
 import com.floreselmachetaso.jardineria.domain.service.CustomerService;
 import com.floreselmachetaso.jardineria.persistence.DTO.CustomerDTO;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/customers")
+@SecurityRequirement(name = "bearerAuth")
 public class CustomerController {
 
     private final CustomerService customerService;

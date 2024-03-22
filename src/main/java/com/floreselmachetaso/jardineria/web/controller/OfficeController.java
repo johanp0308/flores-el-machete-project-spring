@@ -3,6 +3,9 @@ package com.floreselmachetaso.jardineria.web.controller;
 
 import com.floreselmachetaso.jardineria.domain.service.OfficeService;
 import com.floreselmachetaso.jardineria.persistence.DTO.OfficeDTO;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/offices")
+@SecurityRequirement(name = "bearerAuth")
 public class OfficeController {
 
     private final OfficeService officeService;

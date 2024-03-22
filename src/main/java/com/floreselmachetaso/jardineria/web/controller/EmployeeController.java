@@ -2,6 +2,9 @@ package com.floreselmachetaso.jardineria.web.controller;
 
 import com.floreselmachetaso.jardineria.domain.service.EmployeeService;
 import com.floreselmachetaso.jardineria.persistence.DTO.EmployeeDTO;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
+@SecurityRequirement(name = "bearerAuth")
 public class EmployeeController {
 
     @Autowired

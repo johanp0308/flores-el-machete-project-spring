@@ -2,6 +2,9 @@ package com.floreselmachetaso.jardineria.web.controller;
 
 import com.floreselmachetaso.jardineria.domain.service.ProductService;
 import com.floreselmachetaso.jardineria.persistence.DTO.ProductDTO;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
+@SecurityRequirement(name = "bearerAuth")
 public class ProductController {
 
     @Autowired
