@@ -36,4 +36,10 @@ public class ProductController {
         Map<String, Double> prices = productService.getProductExpensiveAndCheap();
         return new ResponseEntity<>(prices, HttpStatus.OK);
     }
+
+    @GetMapping("/sumAmountCustomerDiffOrder")
+    public List<Map<String, Object>> getSumAmountCustomerDiffOrder() {
+        return productService.getsumAmountCustomerDiffOrder();
+    }
+
 }
