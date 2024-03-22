@@ -66,7 +66,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<String> getfindAllPaymentMethodS() {
-        List<Object[]> results = paymentRepository.findAllPaymentMethodS();
+        List<Object[]> results = paymentRepository.findAllPaymentMethods();
         List<String> paymentMethods = new ArrayList<>();
 
         for (Object[] row : results) {
@@ -83,7 +83,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<Object[]> getfindAllCustomerPayForYear() {
-        return paymentRepository.findAllCustomerPayForYear();
+        return paymentRepository.findAllCustomersPayForYear();
     }
 
 

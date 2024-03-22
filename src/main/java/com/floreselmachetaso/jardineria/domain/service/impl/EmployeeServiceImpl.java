@@ -19,9 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
 
-    /*
-     * Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
-     */
+
     @Override
     public List<EmployeeDTO> getAllEmplyeWCodeBoss() {
         List<Object[]> employeesData = employeeRepository.findAllEmplyeWCodeBoss();
@@ -41,9 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
-    /*
-     * Devuelve el nombre del puesto, nombre, apellidos y email del jefe de la empresa
-     */
+
 
     @Override
     public List<EmployeeDTO> getBossEveryone() {
@@ -61,9 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    /*
-     * Devuelve un listado con el nombre, apellidos y puesto de aquellos empleados que no sean representantes de ventas.
-     */
+
     @Override
     public List<EmployeeDTO> getAllNotSalesRepresentative() {
         return employeeRepository.findAllNotSalesRepresentative().stream()
@@ -79,9 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    /*
-     * Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes.
-     */
+
     @Override
     public List<EmployeeDTO> getAllEmployeeAndBoss() {
         List<Object[]> employeesData = employeeRepository.findAllEmployeeAndBoss();
@@ -95,9 +87,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    /*
-     * Devuelve un listado que muestre el nombre de cada empleados, el nombre de su jefe y el nombre del jefe de sus jefe.
-     */
+
     @Override
     public List<EmployeeDTO> getAllEmployeeAndBossAndBoss() {
         return employeeRepository.findAllEmployeeAndBossAndBoss().stream()
@@ -112,9 +102,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    /*
-     * Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
-     */
+
     @Override
     public List<EmployeeDTO> getAllEmployeeNotOffice() {
         return employeeRepository.findAllEmployeeNotOffice().stream()
