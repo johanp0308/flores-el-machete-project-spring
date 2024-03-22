@@ -5,13 +5,15 @@ import java.util.Map;
 
 public interface PaymentService {
 
-    List<Map<String,Object>> averagePayYear();
+    List<Map<String, Object>> getAveragePaymentYear();
 
-    List<Map<String,Object>> endDatePayForCustomer();
+    List<Map<String, Object>> getEndDatePayForCustomer();
 
-    List<Map<String,Object>> amountCustomerDiffOrder();
+    List<Map<String,Object>> getsumTotalPaysAllYear();
 
-    List<Map<String,Object>> sumAmountCustomerDiffOrder();
+    List<String> getfindAllPaymentMethodS();
 
-    List<Map<String,Object>> topProductsMoreSales();
+    List<Object[]> getfindAllPayPalYearOrderDesc();
+
+    List<Object[]> getfindAllCustomerPayForYear();
 }

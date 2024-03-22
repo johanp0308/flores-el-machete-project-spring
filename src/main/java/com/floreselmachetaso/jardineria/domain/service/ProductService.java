@@ -12,4 +12,6 @@ public interface ProductService {
     List<ProductDTO> getAllProductsNotOrderFields();
 
     Map<String, Double> getProductExpensiveAndCheap();
+
+    List<Map<String, Object>> getsumAmountCustomerDiffOrder();
 }
