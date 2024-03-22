@@ -34,6 +34,10 @@ To execute it, remember that you must have java on your computer to compile and 
 [Database Documentation](./documentation/DATABASE_README.md)
 
 
+For the API documentation, start the project and run the following in a browser
+- Api Documentation: http://localhost:8080/doc/swagger-ui/index.html#/
+
+
 ## Authors
 
 - [johanp0308](https://github.com/johanp0308)
