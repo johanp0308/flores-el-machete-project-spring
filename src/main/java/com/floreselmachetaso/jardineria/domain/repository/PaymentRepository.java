@@ -10,66 +10,59 @@ import com.floreselmachetaso.jardineria.persistence.entities.Payment;
 public interface PaymentRepository extends JpaRepository<Payment, String> {
 
     /*
-     * ¿Cuál fue el pago medio en 2009?
+     * What was the average payment in 2009?
      */
-    @Query(value = "SELECT AVG(total) AS pago_medio_year  " + //
-                "FROM pago  " + //
-                "WHERE YEAR(fecha_pago) = 2009", nativeQuery = true)
+    @Query(value = "SELECT AVG(total) AS average_payment_year  " + //
+            "FROM payment  " + //
+            "WHERE YEAR(payment_date) = 2009", nativeQuery = true)
     List<Object[]> averagePayYear();
 
     /*
-     * Calcula la fecha del primer y último pago realizado por cada uno de los clientes. El listado deberá mostrar el nombre y los apellidos de cada cliente.
+     * Calculate the date of the first and last payment made by each of the clients. The list should show the name and last names of each client.
      */
     @Query(value = "SELECT  " + //
-    "    c.nombre_cliente,  " + //
-    "    c.nombre_contacto,  " + //
-    "    c.apellido_contacto, " + //
-    "    MIN(p.fecha_pago) AS primera_fecha_pago, " + //
-    "    MAX(p.fecha_pago) AS ultima_fecha_pago " + //
-    "FROM  " + //
-    "    cliente c " + //
-    "LEFT JOIN  " + //
-    "    pago p ON c.codigo_cliente = p.codigo_cliente " + //
-    "GROUP BY  " + //
-    "    c.codigo_cliente,  " + //
-    "    c.nombre_cliente,  " + //
-    "    c.nombre_contacto,  " + //
-    "    c.apellido_contacto", nativeQuery = true)
+            "    c.customer_name,  " + //
+            "    c.contact_name,  " + //
+            "    c.contact_lastname, " + //
+            "    MIN(p.payment_date) AS first_payment_date, " + //
+            "    MAX(p.payment_date) AS last_payment_date " + //
+            "FROM  " + //
+            "    customer c " + //
+            "LEFT JOIN  " + //
+            "    payment p ON c.customer_code = p.customer_code " + //
+            "GROUP BY  " + //
+            "    c.customer_code,  " + //
+            "    c.customer_name,  " + //
+            "    c.contact_name,  " + //
+            "    c.contact_lastname", nativeQuery = true)
     List<Object[]> endDatePayForCustomer();
 
     /*
-     * Calcula el número de productos diferentes que hay en cada uno de los pedidos.
+     * Show the total sum of all payments made for each of the years that appear in the payment table.
      */
-    @Query(value = "SELECT codigo_pedido, COUNT(DISTINCT codigo_producto) AS num_productos_diferentes " + //
-                "FROM detalle_pedido " + //
-                "GROUP BY codigo_pedido", nativeQuery = true)
-    List<Object[]> amountCustomerDiffOrder();
+    @Query(value = "SELECT YEAR(payment_date) AS year, SUM(total) AS total_sum_payments " + //
+            "FROM payment " + //
+            "GROUP BY YEAR(payment_date)", nativeQuery = true)
+    List<Object[]> sumTotalPaysAllYear();
 
     /*
-     * Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los pedidos.
+     * Returns a list with all the payment methods that appear in the payment table. Note that duplicate payment methods should not appear.
      */
-    @Query(value = "SELECT codigo_pedido, SUM(cantidad) AS cantidad_total_productos " + //
-                "FROM detalle_pedido " + //
-                "GROUP BY codigo_pedido", nativeQuery = true)
-    List<Object[]> sumAmountCustomerDiffOrder();
+
+    @Query(value = "SELECT DISTINCT payment_method FROM payment", nativeQuery = true)
+    List<Object[]> findAllPaymentMethods();
 
     /*
-     * Devuelve un listado de los <Canitidad a mostrar> productos más vendidos y el número total de unidades que se han vendido de cada uno. El listado deberá estar ordenado por el número total de unidades vendidas.
+     * Returns a list with all the payments made in the year 2008 using PayPal. Sort the result from highest to lowest.
      */
-    @Query(value = "SELECT  " + //
-                "    dp.codigo_producto, " + //
-                "    p.nombre AS nombre_producto, " + //
-                "    SUM(dp.cantidad) AS total_unidades_vendidas " + //
-                "FROM  " + //
-                "    detalle_pedido AS dp " + //
-                "JOIN  " + //
-                "    producto AS p ON dp.codigo_producto = p.codigo_producto " + //
-                "GROUP BY  " + //
-                "    dp.codigo_producto, p.nombre " + //
-                "ORDER BY  " + //
-                "    total_unidades_vendidas DESC " + //
-                "LIMIT 20", nativeQuery = true)
-    List<Object[]> topProductsMoreSales();
+    @Query(value = "SELECT * FROM payment WHERE YEAR(payment_date) = 2008 AND payment_method = 'Paypal' ORDER BY total DESC", nativeQuery = true)
+    List<Object[]> findAllPayPalYearOrderDesc();
+
+    /*
+     * Returns a list with the customer codes of those customers who made any payment in 2008. Note that you should eliminate those customer codes that appear duplicated.
+     */
+    @Query(value = "SELECT DISTINCT customer_code FROM payment WHERE YEAR(payment_date) = 2008", nativeQuery = true)
+    List<Object[]> findAllCustomersPayForYear();
 
 
 }
