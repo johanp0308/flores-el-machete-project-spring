@@ -8,6 +8,7 @@ import com.floreselmachetaso.jardineria.persistence.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,4 +63,19 @@ public class ProductServiceImpl implements ProductService {
 
         return priceMap;
     }
+
+    @Override
+    public List<Map<String, Object>> getsumAmountCustomerDiffOrder() {
+        List<Object[]> results = productRepository.sumAmountCustomerDiffOrder();
+        List<Map<String, Object>> amountCustomerDiffOrders = new ArrayList<>();
+
+        for (Object[] row : results) {
+            Map<String, Object> orderInfo = new HashMap<>();
+            orderInfo.put("order_code", row[0]);
+            orderInfo.put("num_different_products", row[1]);
+            amountCustomerDiffOrders.add(orderInfo);
+        }
+            return amountCustomerDiffOrders;
+        }
+
 }

@@ -1,16 +1,19 @@
 package com.floreselmachetaso.jardineria.domain.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PaymentService {
 
-    List<Object[]> averagePayYear();
+    List<Map<String, Object>> getAveragePaymentYear();
 
-    List<Object[]> endDatePayForCustomer();
+    List<Map<String, Object>> getEndDatePayForCustomer();
 
-    List<Object[]> amountCustomerDiffOrder();
+    List<Map<String,Object>> getsumTotalPaysAllYear();
 
-    List<Object[]> sumAmountCustomerDiffOrder();
+    List<String> getfindAllPaymentMethodS();
 
-    List<Object[]> topProductsMoreSales();
+    List<Object[]> getfindAllPayPalYearOrderDesc();
+
+    List<Object[]> getfindAllCustomerPayForYear();
 }
