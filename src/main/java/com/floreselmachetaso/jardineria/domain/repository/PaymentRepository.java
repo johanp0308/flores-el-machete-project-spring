@@ -38,38 +38,31 @@ public interface PaymentRepository extends JpaRepository<Payment, String> {
     List<Object[]> endDatePayForCustomer();
 
     /*
-     * Calcula el número de productos diferentes que hay en cada uno de los pedidos.
+     * Muestre la suma total de todos los pagos que se realizaron para cada uno de los años que aparecen en la tabla pagos.
      */
-    @Query(value = "SELECT codigo_pedido, COUNT(DISTINCT codigo_producto) AS num_productos_diferentes " + //
-                "FROM detalle_pedido " + //
-                "GROUP BY codigo_pedido", nativeQuery = true)
-    List<Object[]> amountCustomerDiffOrder();
+    @Query(value = "SELECT YEAR(fecha_pago) AS año, SUM(total) AS suma_total_pagos " + //
+            "FROM pago " + //
+            "GROUP BY YEAR(fecha_pago)", nativeQuery = true)
+    List<Object[]> sumTotalPaysAllYear();
 
     /*
-     * Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los pedidos.
+     * Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.
      */
-    @Query(value = "SELECT codigo_pedido, SUM(cantidad) AS cantidad_total_productos " + //
-                "FROM detalle_pedido " + //
-                "GROUP BY codigo_pedido", nativeQuery = true)
-    List<Object[]> sumAmountCustomerDiffOrder();
+
+    @Query(value = "SELECT DISTINCT forma_pago FROM pago", nativeQuery = true)
+    List<Object[]> findAllPaymentMethodS();
 
     /*
-     * Devuelve un listado de los <Canitidad a mostrar> productos más vendidos y el número total de unidades que se han vendido de cada uno. El listado deberá estar ordenado por el número total de unidades vendidas.
+     * Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordene el resultado de mayor a menor.
      */
-    @Query(value = "SELECT  " + //
-                "    dp.codigo_producto, " + //
-                "    p.nombre AS nombre_producto, " + //
-                "    SUM(dp.cantidad) AS total_unidades_vendidas " + //
-                "FROM  " + //
-                "    detalle_pedido AS dp " + //
-                "JOIN  " + //
-                "    producto AS p ON dp.codigo_producto = p.codigo_producto " + //
-                "GROUP BY  " + //
-                "    dp.codigo_producto, p.nombre " + //
-                "ORDER BY  " + //
-                "    total_unidades_vendidas DESC " + //
-                "LIMIT 20", nativeQuery = true)
-    List<Object[]> topProductsMoreSales();
+    @Query(value = "SELECT * FROM pago WHERE YEAR(fecha_pago) = 2008 AND forma_pago = 'Paypal' ORDER BY total DESC", nativeQuery = true)
+    List<Object[]> findAllPayPalYearOrderDesc();
+
+    /*
+     * Devuelve un listado con el código de cliente de aquellos clientes que realizaron algún pago en 2008. Tenga en cuenta que deberá eliminar aquellos códigos de cliente que aparezcan repetidos. Resuelva la consulta:
+     */
+    @Query(value = "SELECT DISTINCT codigo_cliente FROM pago WHERE YEAR(fecha_pago) = 2008", nativeQuery = true)
+    List<Object[]> findAllCustomerPayForYear();
 
 
 }

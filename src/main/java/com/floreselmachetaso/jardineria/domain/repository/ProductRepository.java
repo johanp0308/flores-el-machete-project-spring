@@ -35,5 +35,13 @@ public interface ProductRepository extends JpaRepository<Product, String> {
                 "FROM producto", nativeQuery = true)
     List<Object[]> productExpensiveAndCheap();
 
+    /*
+     * Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los pedidos.
+     */
+    @Query(value = "SELECT codigo_pedido, SUM(cantidad) AS cantidad_total_productos " + //
+            "FROM detalle_pedido " + //
+            "GROUP BY codigo_pedido", nativeQuery = true)
+    List<Object[]> sumAmountCustomerDiffOrder();
+
     
 }
